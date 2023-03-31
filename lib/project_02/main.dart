@@ -363,34 +363,35 @@ class _HistoryListViewState extends State<HistoryListView> {
       shaderCallback: (bounds) => _maskingGradient.createShader(bounds),
       blendMode: BlendMode.dstIn,
       child: AnimatedList(
-          key: _key,
-          reverse: true,
-          padding: EdgeInsets.only(top: 100),
-          initialItemCount: appState.history.length,
-          itemBuilder: (context, index, animation) {
-            final pair = appState.history[index];
-            final Widget icon = appState.favorites.contains(pair)
-                ? Icon(
-                    Icons.favorite,
-                    size: 12,
-                  )
-                : SizedBox();
+        key: _key,
+        reverse: true,
+        padding: EdgeInsets.only(top: 100),
+        initialItemCount: appState.history.length,
+        itemBuilder: (context, index, animation) {
+          final pair = appState.history[index];
+          final Widget icon = appState.favorites.contains(pair)
+              ? Icon(
+                  Icons.favorite,
+                  size: 12,
+                )
+              : SizedBox();
 
-            return SizeTransition(
-              sizeFactor: animation,
-              child: Center(
-                child: TextButton.icon(
-                    onPressed: () {
-                      appState.toggleFavorite(pair);
-                    },
-                    icon: icon,
-                    label: Text(
-                      pair.asLowerCase,
-                      semanticsLabel: pair.asPascalCase,
-                    )),
-              ),
-            );
-          }),
+          return SizeTransition(
+            sizeFactor: animation,
+            child: Center(
+              child: TextButton.icon(
+                  onPressed: () {
+                    appState.toggleFavorite(pair);
+                  },
+                  icon: icon,
+                  label: Text(
+                    pair.asLowerCase,
+                    semanticsLabel: pair.asPascalCase,
+                  )),
+            ),
+          );
+        },
+      ),
     );
   }
 }
